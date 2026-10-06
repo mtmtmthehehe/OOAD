@@ -1,0 +1,68 @@
+@startuml
+left to right direction
+skinparam defaultFontName "DejaVu Sans"
+skinparam usecase {
+  BackgroundColor #FFFFFF
+}
+
+actor "Sinh viên" as SV
+actor "Giảng viên" as GV
+actor "Bạn đọc" as BanDoc
+actor "Thủ thư" as ThuThu
+actor "Trưởng thư viện" as TruongTV
+actor "Hệ thống\n(job định kỳ)" as HeThong
+
+SV --|> BanDoc
+GV --|> BanDoc
+
+rectangle "Hệ thống quản lý thư viện" {
+  usecase "UC-01 Đăng nhập/Phân quyền" as UC01
+  usecase "UC-02 Tra cứu sách" as UC02
+  usecase "UC-03 Mượn sách" as UC03
+  usecase "UC-04 Trả sách" as UC04
+  usecase "UC-05 Gia hạn" as UC05
+  usecase "UC-06 Đặt trước sách" as UC06
+  usecase "UC-07 Tính tiền phạt" as UC07
+  usecase "UC-08 Thanh toán phạt" as UC08
+  usecase "UC-09 Quản lý đầu sách/bản sao" as UC09
+  usecase "UC-10 Quản lý bạn đọc" as UC10
+  usecase "UC-11 Thống kê – báo cáo" as UC11
+  usecase "UC-12 Nhắc hạn trả tự động" as UC12
+  usecase "UC-13 Kiểm tra quyền và hạn mức mượn" as UC13
+  usecase "UC-14 Cập nhật trạng thái bản sao" as UC14
+}
+
+' --- Actor chính ---
+BanDoc --> UC01
+BanDoc --> UC02
+BanDoc --> UC06
+
+ThuThu --> UC01
+ThuThu --> UC02
+ThuThu --> UC03
+ThuThu --> UC04
+ThuThu --> UC05
+ThuThu --> UC08
+ThuThu --> UC09
+ThuThu --> UC10
+
+TruongTV --> UC01
+TruongTV --> UC11
+
+HeThong --> UC07
+HeThong --> UC12
+Reader --> UC12
+
+' --- include: UC gốc ..> UC được include ---
+UC03 ..> UC13 : <<include>>
+UC05 ..> UC13 : <<include>>
+UC06 ..> UC13 : <<include>>
+UC08 ..> UC07 : <<include>>
+UC08 ..> UC10 : <<include>>
+UC03 ..> UC14 : <<include>>
+UC04 ..> UC14 : <<include>>
+
+' --- extend: UC mở rộng ..> UC gốc ---
+UC07 ..> UC04 : <<extend>>\n[trả trễ]
+
+@enduml

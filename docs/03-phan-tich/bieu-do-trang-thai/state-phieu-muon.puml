@@ -1,0 +1,24 @@
+@startuml
+DangMuon : Đang mượn
+QuaHan : Quá hạn
+TraMotPhan : Trả một phần
+DaTra : Đã trả
+DaTraTre : Đã trả trễ (có phạt)
+MatHuHong : Mất/Hư hỏng
+
+[*] --> DangMuon : UC-03 tạo phiếu
+DangMuon --> DangMuon : UC-05 Gia hạn [soLanGiaHan < 2 && còn ≥ 2 ngày && không có đặt trước && TK không khoá] (BR-06..BR-09, BR-13)
+DangMuon --> QuaHan : UC-12 cron job
+DangMuon --> TraMotPhan : UC-04 trả một phần cuốn
+TraMotPhan --> TraMotPhan : UC-04 trả thêm cuốn
+TraMotPhan --> DaTra : UC-04 trả hết, đúng hạn
+DangMuon --> DaTra : UC-04 trả hết, đúng hạn
+DangMuon --> DaTraTre : UC-04 trả trễ trước khi cron chạy
+QuaHan --> DaTraTre : UC-04 trả hết, quá hạn (phát sinh PhieuPhat)
+DangMuon --> MatHuHong : UC-04 ghi nhận mất/hỏng (BR-14, BR-15)
+TraMotPhan --> MatHuHong : UC-04 ghi nhận mất/hỏng
+QuaHan --> MatHuHong : UC-04 ghi nhận mất/hỏng (BR-14, BR-15)
+DaTra --> [*]
+DaTraTre --> [*]
+MatHuHong --> [*]
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+actor BanDoc as BD
+boundary ManHinhDatTruoc
+control ControllerDatTruoc
+entity BanSaoSach
+entity PhieuDatTruoc
+entity BanDoc
+
+BD -> ManHinhDatTruoc : chọn "Đặt trước" đầu sách
+ManHinhDatTruoc -> ControllerDatTruoc : datTruoc(maDauSach)
+ControllerDatTruoc -> BanSaoSach : kiemTraConBanSaoTrong()
+alt còn bản sao "Có sẵn"
+  ControllerDatTruoc --> ManHinhDatTruoc : gợi ý mượn trực tiếp (UC-03)
+else hết bản sao trong
+  ControllerDatTruoc -> PhieuDatTruoc : kiemTraTrungDauSach(maBanDoc, maDauSach)
+  alt đã có phiếu chờ cho đầu sách này
+    ControllerDatTruoc --> ManHinhDatTruoc : từ chối "đã đặt trước" // UC-06 3a
+  else
+    ControllerDatTruoc -> PhieuDatTruoc : demPhieuCho(maBanDoc)
+    alt đang chờ >= 2 phiếu (BR-19)
+      ControllerDatTruoc --> ManHinhDatTruoc : từ chối "tối đa 2 phiếu chờ"
+    else
+      ControllerDatTruoc -> BanDoc : kiemTraDieuKienDatTruoc() // thẻ còn hạn + biKhoaMuon=false (BR-23)
+      BanDoc --> ControllerDatTruoc : hợp lệ
+      ControllerDatTruoc -> PhieuDatTruoc : new(ngayDat, viTriHang = max(viTriHang hien tai) + 1)
+      ControllerDatTruoc --> ManHinhDatTruoc : đặt trước thành công, hiển thị vị trí hàng
+    end
+  end
+end
+note right: Khi bản sao trả về và hàng đợi không rỗng, bạn đọc đầu hàng được giữ sách 3 ngày (BR-18); quá 3 ngày tự huỷ, chuyển người kế tiếp.
+@enduml

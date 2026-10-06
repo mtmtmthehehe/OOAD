@@ -1,0 +1,145 @@
+@startuml
+entity "tai_khoan" as tk {
+  * ma_tk : VARCHAR(20) <<PK>>
+  --
+  ten_dang_nhap : VARCHAR(50) <<UNIQUE,NOT NULL>>
+  mat_khau_hash : VARCHAR(255) <<NOT NULL>>
+  vai_tro : VARCHAR(20) CHECK (vai_tro IN ('BanDoc','ThuThu','TruongThuVien','HeThong'))
+  ma_ban_doc : VARCHAR(20) <<FK,NULL>>
+  ma_thu_thu : VARCHAR(20) <<FK,NULL>>
+  trang_thai : VARCHAR(20) DEFAULT 'HoatDong' CHECK (trang_thai IN ('HoatDong','VoHieuHoa'))
+}
+entity "nhat_ky" as nk {
+  * ma_log : BIGINT <<PK>>
+  --
+  ma_tk : VARCHAR(20) <<FK>>
+  hanh_dong : VARCHAR(100)
+  doi_tuong : VARCHAR(50)
+  thoi_diem : TIMESTAMP
+  chi_tiet : TEXT
+}
+entity "thu_thu" as thu_thu {
+  * ma_thu_thu : VARCHAR(20) <<PK>>
+  --
+  ho_ten : VARCHAR(100)
+  email : VARCHAR(100)
+}
+entity "dau_sach" as dau_sach {
+  * ma_dau_sach : VARCHAR(20) <<PK>>
+  --
+  ten_sach : VARCHAR(255)
+  isbn : VARCHAR(20) <<UNIQUE,NOT NULL>>
+  nam_xuat_ban : INT
+  gia_bia : DECIMAL(12,2)
+  loai_tai_lieu : VARCHAR(20) CHECK (loai_tai_lieu IN ('GiaoTrinh','ThamKhao','TapChi'))
+  ma_the_loai : VARCHAR(10) <<FK>>
+  ma_nxb : VARCHAR(10) <<FK>>
+}
+entity "tac_gia" as tac_gia {
+  * ma_tac_gia : VARCHAR(20) <<PK>>
+  --
+  ho_ten : VARCHAR(100)
+}
+entity "dau_sach_tac_gia" as d_t_g {
+  * ma_dau_sach : VARCHAR(20) <<FK,PK>>
+  * ma_tac_gia : VARCHAR(20) <<FK,PK>>
+}
+entity "the_loai" as the_loai {
+  * ma_the_loai : VARCHAR(10) <<PK>>
+  --
+  ten_the_loai : VARCHAR(50)
+}
+entity "nha_xuat_ban" as nxb {
+  * ma_nxb : VARCHAR(10) <<PK>>
+  --
+  ten_nxb : VARCHAR(100)
+}
+entity "ban_sao_sach" as ban_sao {
+  * ma_ban_sao : VARCHAR(20) <<PK>>
+  --
+  ma_dau_sach : VARCHAR(20) <<FK>>
+  vi_tri_ke : VARCHAR(50)
+  trang_thai : VARCHAR(20) CHECK (trang_thai IN ('CoSan','DangMuon','DaDatTruoc','Mat','HuHong'))
+}
+entity "ban_doc" as ban_doc {
+  * ma_ban_doc : VARCHAR(20) <<PK>>
+  --
+  ho_ten : VARCHAR(100)
+  email : VARCHAR(100) <<NOT NULL>>
+  loai : VARCHAR(10) CHECK (loai IN ('SV','GV'))
+  bi_khoa_muon : BOOLEAN DEFAULT false
+}
+entity "the_thu_vien" as the {
+  * ma_the : VARCHAR(20) <<PK>>
+  --
+  ma_ban_doc : VARCHAR(20) <<FK,UNIQUE>>
+  ngay_cap : DATE
+  ngay_het_han : DATE
+  trang_thai : VARCHAR(20) DEFAULT 'HieuLuc' CHECK (trang_thai IN ('HieuLuc','HetHan','ThuHoi'))
+}
+entity "phieu_muon" as pm {
+  * ma_phieu : VARCHAR(20) <<PK>>
+  --
+  ma_ban_doc : VARCHAR(20) <<FK>>
+  ma_thu_thu : VARCHAR(20) <<FK>>
+  ngay_muon : DATE
+  ngay_den_han : DATE
+  trang_thai : VARCHAR(20) CHECK (trang_thai IN ('DangMuon','QuaHan','TraMotPhan','DaTra','DaTraTre','MatHuHong'))
+  so_lan_gia_han : INT DEFAULT 0 CHECK (so_lan_gia_han <= 2)
+}
+entity "chi_tiet_phieu_muon" as ct {
+  * ma_ct : VARCHAR(20) <<PK>>
+  --
+  ma_phieu : VARCHAR(20) <<FK>>
+  ma_ban_sao : VARCHAR(20) <<FK>>
+  ngay_tra : DATE
+}
+entity "phieu_phat" as pp {
+  * ma_phieu_phat : VARCHAR(20) <<PK>>
+  --
+  ma_ct : VARCHAR(20) <<FK>>
+  ma_ban_doc : VARCHAR(20) <<FK>>
+  loai_phat : VARCHAR(10) CHECK (loai_phat IN ('TRE','MAT','HONG'))
+  so_ngay_tre : INT
+  so_tien : DECIMAL(12,2)
+  so_tien_da_thu : DECIMAL(12,2) DEFAULT 0
+  trang_thai : VARCHAR(20) DEFAULT 'ChuaThanhToan' CHECK (trang_thai IN ('ChuaThanhToan','ThanhToanMotPhan','DaThanhToan'))
+  ngay_thanh_toan : DATE
+}
+entity "phieu_dat_truoc" as dt {
+  * ma_phieu_dt : VARCHAR(20) <<PK>>
+  --
+  ma_ban_doc : VARCHAR(20) <<FK>>
+  ma_dau_sach : VARCHAR(20) <<FK>>
+  ma_ban_sao : VARCHAR(20) <<FK>>
+  ngay_dat : DATE
+  vi_tri_hang : INT
+  han_nhan_sach : DATE
+  trang_thai : VARCHAR(20) DEFAULT 'DangCho' CHECK (trang_thai IN ('DangCho','SanSangNhan','DaNhan','DaHuy'))
+}
+
+' công nợ bạn đọc là dẫn xuất (Q7):
+'   cong_no = Σ(so_tien − so_tien_da_thu) của phiếu phạt chưa DaThanhToan
+' Ràng buộc bổ sung: đúng một trong ma_ban_doc / ma_thu_thu của tai_khoan khác NULL;
+'   ngay_het_han = ngay_cap + 12 tháng (BR-21); so_tien_da_thu <= so_tien;
+'   ngay_den_han >= ngay_muon; UNIQUE (ma_ban_doc, ma_dau_sach) cho phiếu đặt trước đang chờ
+
+dau_sach ||--o{ ban_sao
+the_loai ||--o{ dau_sach
+nxb ||--o{ dau_sach
+dau_sach ||--o{ d_t_g
+tac_gia ||--o{ d_t_g
+ban_doc ||--|| the
+ban_doc ||--o{ pm
+thu_thu ||--o{ pm
+pm ||--|{ ct
+ban_sao ||--o{ ct
+ct ||--o{ pp
+ban_doc ||--o{ pp
+ban_doc ||--o{ dt
+dau_sach ||--o{ dt
+ban_sao ||--o{ dt
+tk ||--o| ban_doc
+tk ||--o| thu_thu
+tk ||--o{ nk
+@enduml

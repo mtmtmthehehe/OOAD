@@ -1,0 +1,167 @@
+@startuml
+note as N1
+Diagram chỉ gồm các lớp Entity.
+Lớp Boundary/Control xem tại danh-sach-lop.md và các sequence diagram.
+end note
+enum LoaiBanDoc {
+  SV
+  GV
+}
+enum TrangThaiTK {
+  HoatDong
+  VoHieuHoa
+}
+enum TrangThaiBanSao {
+  CoSan
+  DangMuon
+  DaDatTruoc
+  Mat
+  HuHong
+}
+enum TrangThaiPhieuMuon {
+  DangMuon
+  QuaHan
+  TraMotPhan
+  DaTra
+  DaTraTre
+  MatHuHong
+}
+enum TrangThaiPhat {
+  ChuaThanhToan
+  ThanhToanMotPhan
+  DaThanhToan
+}
+enum LoaiPhat {
+  TRE
+  MAT
+  HONG
+}
+enum TrangThaiDT {
+  DangCho
+  SanSangNhan
+  DaNhan
+  DaHuy
+}
+enum LoaiTaiLieu {
+  GiaoTrinh
+  ThamKhao
+  TapChi
+}
+enum TrangThaiThe {
+  HieuLuc
+  HetHan
+  ThuHoi
+}
+
+class DauSach {
+  +maDauSach: String
+  +tenSach: String
+  +isbn: String
+  +namXuatBan: int
+  +giaBia: double
+  +loaiTaiLieu: LoaiTaiLieu
+  +choMuonVe(): boolean
+}
+class BanSaoSach {
+  +maBanSao: String
+  +viTriKe: String
+  +trangThai: TrangThaiBanSao
+  +capNhatTrangThai(tt): void
+}
+class BanDoc {
+  +maBanDoc: String
+  +hoTen: String
+  +email: String
+  +loai: LoaiBanDoc
+  +biKhoaMuon: boolean
+  +congNo(): double {derived}
+  +kiemTraDieuKienMuon(): boolean
+  +kiemTraDieuKienDatTruoc(): boolean
+}
+class TheThuVien {
+  +maThe: String
+  +ngayCap: Date
+  +ngayHetHan: Date
+  +trangThai: TrangThaiThe
+  +conHieuLuc(): boolean
+}
+class TaiKhoan {
+  +maTK: String
+  +tenDangNhap: String
+  +matKhauHash: String
+  +vaiTro: String
+  +trangThai: TrangThaiTK
+}
+class NhatKy {
+  +maLog: long
+  +hanhDong: String
+  +doiTuong: String
+  +thoiDiem: Date
+  +chiTiet: String
+}
+class ThuThu {
+  +maThuThu: String
+  +hoTen: String
+  +email: String
+}
+class PhieuMuon {
+  +maPhieu: String
+  +ngayMuon: Date
+  +ngayDenHan: Date
+  +trangThai: TrangThaiPhieuMuon
+  +soLanGiaHan: int
+  +coQuaHan(): boolean {derived}
+  +choPhepGiaHan(): boolean
+  +giaHan(): boolean
+}
+note top of PhieuMuon : ngayDenHan được lưu (tính lúc tạo,\nđặt lại khi gia hạn), không phải derived
+class ChiTietPhieuMuon {
+  +ngayTra: Date
+}
+class PhieuPhat {
+  +maPhieuPhat: String
+  +loaiPhat: LoaiPhat
+  +soNgayTre: int
+  +soTien: double
+  +soTienDaThu: double
+  +trangThai: TrangThaiPhat
+  +tinhTien(): double
+}
+class PhieuDatTruoc {
+  +maPhieuDT: String
+  +ngayDat: Date
+  +viTriHang: int
+  +hanNhanSach: Date
+  +trangThai: TrangThaiDT
+}
+class NhaXuatBan {
+  +maNXB: String
+  +tenNXB: String
+}
+class TacGia {
+  +maTG: String
+  +hoTen: String
+}
+class TheLoai {
+  +maTL: String
+  +tenTheLoai: String
+}
+
+DauSach "1" -- "0..*" BanSaoSach
+DauSach "0..*" -- "1" TheLoai
+DauSach "0..*" -- "0..*" TacGia
+DauSach "0..*" -- "1" NhaXuatBan
+BanDoc "1" -- "1" TheThuVien
+BanDoc "1" -- "0..*" PhieuMuon
+BanDoc "1" -- "0..*" PhieuDatTruoc
+BanDoc "1" -- "0..*" PhieuPhat
+ThuThu "1" -- "0..*" PhieuMuon : lập
+PhieuMuon "1" *-- "1..*" ChiTietPhieuMuon
+ChiTietPhieuMuon "0..*" -- "1" BanSaoSach
+ChiTietPhieuMuon "1" -- "0..*" PhieuPhat
+PhieuDatTruoc "0..*" -- "1" DauSach
+PhieuDatTruoc "0..*" -- "0..1" BanSaoSach
+TaiKhoan "0..1" -- "1" BanDoc
+TaiKhoan "0..1" -- "1" ThuThu
+TaiKhoan "1" -- "0..*" NhatKy
+@enduml

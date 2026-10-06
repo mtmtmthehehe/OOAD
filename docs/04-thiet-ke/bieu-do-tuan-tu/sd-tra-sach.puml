@@ -1,0 +1,44 @@
+@startuml
+actor ThuThu
+boundary ManHinhTraSach
+control ControllerTraSach
+entity BanSaoSach
+entity BanDoc
+entity PhieuMuon
+entity ChiTietPhieuMuon
+entity PhieuPhat
+entity PhieuDatTruoc
+
+ThuThu -> ManHinhTraSach : quét mã bản sao
+ManHinhTraSach -> ControllerTraSach : traSach(maBanSao, tinhTrang)
+ControllerTraSach -> ChiTietPhieuMuon : layThongTin()
+ChiTietPhieuMuon --> ControllerTraSach : ngayDenHan
+ControllerTraSach -> ChiTietPhieuMuon : ngayTra = today
+
+alt tinhTrang == MAT
+  ControllerTraSach -> PhieuPhat : new(loaiPhat=MAT, soTien=2*giaBia) // BR-14
+else tinhTrang == HONG
+  ControllerTraSach -> PhieuPhat : new(loaiPhat=HONG, soTien=0.5*giaBia) // BR-15
+end
+
+alt today > ngayDenHan
+  ControllerTraSach -> PhieuPhat : new(loaiPhat=TRE, soTien=5000*(today-ngayDenHan)) // BR-10/11; một dòng có thể có đồng thời TRE + MAT/HONG
+end
+
+ControllerTraSach -> BanDoc : congNo() = Σ(soTien - soTienDaThu)
+alt congNo >= 100000đ
+  ControllerTraSach -> BanDoc : biKhoaMuon = true // BR-12
+end
+
+alt hàng đợi đặt trước của đầu sách ≠ rỗng
+  ControllerTraSach -> BanSaoSach : capNhatTrangThai(DaDatTruoc) // BR-18
+else không có đặt trước
+  ControllerTraSach -> BanSaoSach : capNhatTrangThai(CoSan/Mat/HuHong)
+end
+
+ControllerTraSach -> PhieuMuon : moiChiTietDaTra()?
+alt mọi dòng chi tiết đã trả
+  ControllerTraSach -> PhieuMuon : dongPhieu(DaTra/DaTraTre/MatHuHong)
+end
+ControllerTraSach --> ManHinhTraSach : kết quả trả sách + phiếu phạt
+@enduml

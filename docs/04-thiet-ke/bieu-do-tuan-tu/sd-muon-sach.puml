@@ -1,0 +1,35 @@
+@startuml
+actor BanDoc as BD
+boundary ManHinhMuonSach
+control ControllerMuonSach
+entity BanDoc
+entity BanSaoSach
+entity DauSach
+entity PhieuMuon
+entity ChiTietPhieuMuon
+entity NhatKy
+
+BD -> ManHinhMuonSach : quét mã thẻ, mã sách
+ManHinhMuonSach -> ControllerMuonSach : taoPhieuMuon(maThe, dsMaBanSao)
+ControllerMuonSach -> BanDoc : kiemTraDieuKienMuon() // BR-16
+alt không đủ điều kiện
+  ControllerMuonSach --> ManHinhMuonSach : từ chối + lý do (nợ phạt/quá hạn/khoá/hết hạn mức/thẻ hết hạn)
+else đủ điều kiện
+  loop mỗi mã sách
+    ControllerMuonSach -> DauSach : choMuonVe()? // BR-05
+    alt là ThamKhao/TapChi
+      ControllerMuonSach --> ManHinhMuonSach : từ chối "không cho mượn về"
+    else có khách chờ đặt trước (hàng đợi ≠ rỗng)
+      ControllerMuonSach --> ManHinhMuonSach : từ chối "có người đặt trước" // UC-03 6a
+    else bản sao không ở trạng thái CoSan
+      ControllerMuonSach --> ManHinhMuonSach : từ chối "bản sao không sẵn sàng"
+    else
+      ControllerMuonSach -> PhieuMuon : new(ngayMuon, ngayDenHan = ngayMuon + (SV 14 / GV 30)) // BR-03/04
+      ControllerMuonSach -> ChiTietPhieuMuon : new(banSao, ngayTra=null)
+      ControllerMuonSach -> BanSaoSach : capNhatTrangThai(DangMuon) // UC-14
+    end
+  end
+  ControllerMuonSach -> NhatKy : ghi log thao tác
+  ControllerMuonSach --> ManHinhMuonSach : tạo phiếu thành công + ngayDenHan
+end
+@enduml

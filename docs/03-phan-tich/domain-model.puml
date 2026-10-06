@@ -1,0 +1,29 @@
+@startuml
+class DauSach
+class BanSaoSach
+class BanDoc
+class TheThuVien
+class PhieuMuon
+class ChiTietPhieuMuon
+class PhieuPhat
+class PhieuDatTruoc
+class ThuThu
+class NhaXuatBan
+class TacGia
+class TheLoai
+
+DauSach "1" -- "0..*" BanSaoSach
+DauSach "0..*" -- "1" TheLoai
+DauSach "0..*" -- "0..*" TacGia
+DauSach "0..*" -- "1" NhaXuatBan
+BanDoc "1" -- "1" TheThuVien
+BanDoc "1" -- "0..*" PhieuMuon
+BanDoc "1" -- "0..*" PhieuDatTruoc
+BanDoc "1" -- "0..*" PhieuPhat
+ThuThu "1" -- "0..*" PhieuMuon : lập
+PhieuMuon "1" *-- "1..*" ChiTietPhieuMuon
+ChiTietPhieuMuon "0..*" -- "1" BanSaoSach
+ChiTietPhieuMuon "1" -- "0..*" PhieuPhat
+PhieuDatTruoc "0..*" -- "1" DauSach
+PhieuDatTruoc "0..*" -- "0..1" BanSaoSach
+@enduml

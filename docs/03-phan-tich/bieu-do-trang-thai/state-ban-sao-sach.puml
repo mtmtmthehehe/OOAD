@@ -1,0 +1,19 @@
+@startuml
+CoSan : Có sẵn
+DangMuon : Đang mượn
+DaDatTruoc : Đã đặt trước (chờ nhận)
+Mat : Mất
+HuHong : Hư hỏng
+
+[*] --> CoSan
+CoSan --> DangMuon : UC-03 Mượn sách
+DangMuon --> CoSan : UC-04 Trả sách đúng hạn
+DangMuon --> DaDatTruoc : UC-04 Trả sách [có người đặt trước] (BR-18)
+DaDatTruoc --> DangMuon : UC-03 Mượn cho người đặt trước
+DaDatTruoc --> CoSan : quá 3 ngày không đến nhận (BR-19)
+CoSan --> HuHong : UC-09 kiểm kê phát hiện hư hỏng
+DangMuon --> Mat : UC-04 ghi nhận mất (BR-14)
+DangMuon --> HuHong : UC-04 ghi nhận hư (BR-15)
+Mat --> CoSan : mua bù xong (thanh lý bản cũ)
+HuHong --> [*] : thanh lý
+@enduml
