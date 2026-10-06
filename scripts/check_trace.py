@@ -125,11 +125,18 @@ for md in docs.rglob('*.md'):
         if not (md.parent / target).resolve().exists():
             err(f'{md.relative_to(ROOT)}: link hỏng → {target}')
 
-# (8) PNG cũ hơn PML
+# (8) PNG phải được cập nhật cùng PML (so theo git working tree; mtime không tin cậy sau khi clone)
+import subprocess
+try:
+    changed = set(subprocess.run(['git','status','--porcelain'],cwd=ROOT,capture_output=True,text=True,check=True).stdout.split('\n'))
+    changed = {l[3:].strip() for l in changed if len(l) > 3}
+except Exception:
+    changed = set()
 for pml in docs.rglob('*.puml'):
     png = pml.with_suffix('.png')
-    if png.exists() and png.stat().st_mtime < pml.stat().st_mtime:
-        err(f'{png.relative_to(ROOT)} cũ hơn {pml.name} — chạy render-all.sh')
+    rp, rn = str(pml.relative_to(ROOT)), str(png.relative_to(ROOT))
+    if png.exists() and rp in changed and rn not in changed:
+        err(f'{rn} chưa render lại sau khi sửa {pml.name} — chạy render-all.sh')
 
 if errors:
     print('\n'.join(errors)); sys.exit(1)

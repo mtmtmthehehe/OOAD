@@ -3,7 +3,7 @@
 | Mã BR | FR liên quan | UC liên quan | CLS liên quan | TC liên quan |
 |-------|--------------|--------------|---------------|--------------|
 | BR-01 | FR-04 | UC-03, UC-13 | CLS-03, CLS-05, CLS-13, CLS-17, CLS-19 | TC-06 |
-| BR-02 | FR-04 | UC-03, UC-13 | CLS-03, CLS-05, CLS-17, CLS-19 | TC-32 |
+| BR-02 | FR-04 | UC-03, UC-13 | CLS-03, CLS-05, CLS-17 | TC-32 |
 | BR-03 | FR-05 | UC-03 | CLS-05 | TC-05, TC-24 |
 | BR-04 | FR-05 | UC-03 | CLS-05 | TC-07 |
 | BR-05 | FR-06 | UC-03 | CLS-01, CLS-02 | TC-08, TC-53 |

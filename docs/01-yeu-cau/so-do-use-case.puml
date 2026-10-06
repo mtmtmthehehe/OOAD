@@ -51,7 +51,7 @@ TruongTV --> UC11
 
 HeThong --> UC07
 HeThong --> UC12
-Reader --> UC12
+BanDoc --> UC12
 
 ' --- include: UC gốc ..> UC được include ---
 UC03 ..> UC13 : <<include>>

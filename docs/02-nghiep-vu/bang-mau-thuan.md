@@ -2,10 +2,10 @@
 
 | Mâu thuẫn | Mô tả | Phương án xử lý | Người quyết định | Ngày chốt |
 |-----------|-------|------------------|-------------------|-----------|
-| Tính phạt theo ngày lịch hay ngày làm việc | Thủ thư nói tính theo ngày lịch (kể cả Chủ nhật), quy định cũ ghi theo ngày làm việc của thư viện. | Thống nhất tính theo **ngày lịch** vì đơn giản, dễ kiểm tra, hạn chế khiếu nại. | Trưởng thư viện | 06/10/2026 |
-| Mốc được phép gia hạn | Thủ thư đề xuất gia hạn bất cứ lúc nào; Trưởng thư viện yêu cầu phải còn ≥ 2 ngày trước hạn. | Chọn mốc **trước hạn ≥ 2 ngày** (BR-07), thống nhất với BR trong quy-tac-nghiep-vu. | Trưởng thư viện | 06/10/2026 |
-| Số lần gia hạn tối đa | Một số ý kiến cho gia hạn không giới hạn đến khi có người đặt trước. | Chốt **tối đa 2 lần, mỗi lần 7 ngày** (BR-06). | Trưởng thư viện | 06/10/2026 |
-| Ngưỡng khoá tài khoản | Ý kiến 50.000đ vs 200.000đ. | Chốt **100.000đ** (BR-12). | Trưởng thư viện | 06/10/2026 |
+| Tính phạt theo ngày lịch hay ngày làm việc | Thủ thư nói tính theo ngày lịch (kể cả Chủ nhật), quy định cũ ghi theo ngày làm việc của thư viện. | Thống nhất tính theo **ngày lịch** vì đơn giản, dễ kiểm tra, hạn chế khiếu nại. | Nhóm đề xuất, chờ Trưởng thư viện xác nhận | 06/10/2026 |
+| Mốc được phép gia hạn | Thủ thư đề xuất gia hạn bất cứ lúc nào; Trưởng thư viện yêu cầu phải còn ≥ 2 ngày trước hạn. | Chọn mốc **trước hạn ≥ 2 ngày** (BR-07), thống nhất với BR trong quy-tac-nghiep-vu. | Nhóm đề xuất, chờ Trưởng thư viện xác nhận | 06/10/2026 |
+| Số lần gia hạn tối đa | Một số ý kiến cho gia hạn không giới hạn đến khi có người đặt trước. | Chốt **tối đa 2 lần, mỗi lần 7 ngày** (BR-06). | Nhóm đề xuất, chờ Trưởng thư viện xác nhận | 06/10/2026 |
+| Ngưỡng khoá tài khoản | Ý kiến 50.000đ vs 200.000đ. | Chốt **100.000đ** (BR-12). | Nhóm đề xuất, chờ Trưởng thư viện xác nhận | 06/10/2026 |
 
 Tất cả quyết định trên đã được đồng bộ vào quy-tac-nghiep-vu, yeu-cau-chuc-nang, đặc tả UC và biểu đồ.
 

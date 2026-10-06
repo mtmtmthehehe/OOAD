@@ -19,11 +19,11 @@ echo "== 4. Số liệu nghiệp vụ không kèm mã BR ở dòng đang dùng =
 python3 - <<'PY'
 import re, pathlib, sys
 ok = True
-MA_BR = re.compile(r'\b(14 ngày|30 ngày|5\.000đ|100\.000đ|2 lần|7 ngày|ngủp hạn 12 tháng)')
+MA_BR = re.compile(r'\b(14 ngày|30 ngày|5\.000đ|100\.000đ|2 lần|7 ngày|12 tháng)')
 for md in pathlib.Path('docs').rglob('*.md'):
     if md.name in ('bien-ban-phong-van.md','nhat-ky-nhom.md','00-tong-quan.md','README.md'): continue
     for i, line in enumerate(md.read_text(encoding='utf-8').splitlines(), 1):
-        if MA_BR.search(line) and 'BR-' not in line and 'Q' not in line:
+        if MA_BR.search(line) and 'BR-' not in line and not re.search(r'\bQ[1-9]\b', line):
             print(f'{md}:{i}: {line.strip()[:80]}'); ok = False
 sys.exit(0 if ok else 1)
 PY

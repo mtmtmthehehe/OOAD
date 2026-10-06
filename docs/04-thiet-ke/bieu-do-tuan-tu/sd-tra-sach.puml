@@ -30,10 +30,17 @@ alt congNo >= 100000đ
   ControllerTraSach -> BanDoc : biKhoaMuon = true // BR-12
 end
 
-alt hàng đợi đặt trước của đầu sách ≠ rỗng
-  ControllerTraSach -> BanSaoSach : capNhatTrangThai(DaDatTruoc) // BR-18
-else không có đặt trước
-  ControllerTraSach -> BanSaoSach : capNhatTrangThai(CoSan/Mat/HuHong)
+alt tinhTrang == MAT
+  ControllerTraSach -> BanSaoSach : capNhatTrangThai(Mat) // UC-14, BR-14
+else tinhTrang == HONG
+  ControllerTraSach -> BanSaoSach : capNhatTrangThai(HuHong) // UC-14, BR-15
+else tình trạng bình thường
+  ControllerTraSach -> PhieuDatTruoc : tonTaiDangCho(maDauSach)
+  alt hàng đợi đặt trước ≠ rỗng
+    ControllerTraSach -> BanSaoSach : capNhatTrangThai(DaDatTruoc) // BR-18
+  else không có đặt trước
+    ControllerTraSach -> BanSaoSach : capNhatTrangThai(CoSan)
+  end
 end
 
 ControllerTraSach -> PhieuMuon : moiChiTietDaTra()?

@@ -21,10 +21,10 @@ else cho phép
     alt có người đặt trước (BR-09)
       ControllerGiaHan --> ManHinhGiaHan : từ chối // BR-09
     else không có đặt trước
-      ControllerGiaHan -> BanDoc : kiemTraBiKhoaMuon() // BR-13
-      alt bị khoá mượn
-        ControllerGiaHan --> ManHinhGiaHan : từ chối // bị khoá do nợ (BR-13)
-      else không bị khoá
+      ControllerGiaHan -> BanDoc : kiemTraDieuKien(GIA_HAN) // UC-13: thẻ còn hạn (BR-21), không khoá (BR-13), công nợ dưới ngưỡng (BR-12)
+      alt không đủ điều kiện
+        ControllerGiaHan --> ManHinhGiaHan : từ chối // thẻ hết hạn / bị khoá / công nợ
+      else đủ điều kiện
         ControllerGiaHan -> PhieuMuon : giaHan() // ngayDenHan += 7 ngày, soLanGiaHan++ (BR-06)
         ControllerGiaHan --> ManHinhGiaHan : gia hạn thành công
       end
