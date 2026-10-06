@@ -106,6 +106,14 @@ entity "phieu_phat" as pp {
   trang_thai : VARCHAR(20) DEFAULT 'ChuaThanhToan' CHECK (trang_thai IN ('ChuaThanhToan','ThanhToanMotPhan','DaThanhToan'))
   ngay_thanh_toan : DATE
 }
+entity "thanh_toan_phat" as tt {
+  * ma_tt : VARCHAR(20) <<PK>>
+  --
+  ma_phieu_phat : VARCHAR(20) <<FK>>
+  ma_thu_thu : VARCHAR(20) <<FK>>
+  so_tien : DECIMAL(12,2) <<NOT NULL>> CHECK (so_tien > 0)
+  thoi_diem : TIMESTAMP
+}
 entity "phieu_dat_truoc" as dt {
   * ma_phieu_dt : VARCHAR(20) <<PK>>
   --
@@ -121,7 +129,8 @@ entity "phieu_dat_truoc" as dt {
 ' công nợ bạn đọc là dẫn xuất (Q7):
 '   cong_no = Σ(so_tien − so_tien_da_thu) của phiếu phạt chưa DaThanhToan
 ' Ràng buộc bổ sung: đúng một trong ma_ban_doc / ma_thu_thu của tai_khoan khác NULL;
-'   ngay_het_han = ngay_cap + 12 tháng (BR-21); so_tien_da_thu <= so_tien;
+'   so_tien_da_thu = Σ thanh_toan_phat.so_tien của phiếu (cập nhật cùng giao dịch);
+'   ngay_het_han = ngay_cap + 12 tháng, thẻ hiệu lực hết ngày ngay_het_han (BR-21); so_tien_da_thu <= so_tien;
 '   ngay_den_han >= ngay_muon; UNIQUE (ma_ban_doc, ma_dau_sach) cho phiếu đặt trước đang chờ
 
 dau_sach ||--o{ ban_sao
@@ -135,6 +144,8 @@ thu_thu ||--o{ pm
 pm ||--|{ ct
 ban_sao ||--o{ ct
 ct ||--o{ pp
+pp ||--o{ tt
+thu_thu ||--o{ tt
 ban_doc ||--o{ pp
 ban_doc ||--o{ dt
 dau_sach ||--o{ dt

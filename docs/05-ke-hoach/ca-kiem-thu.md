@@ -13,8 +13,8 @@
 | TC-09 | UC-03 | BR-16, FR-03 | Bạn đọc nợ phạt 120.000đ | — | Từ chối, yêu cầu đóng phạt |
 | TC-10 | UC-04 | FR-09 | Phiếu mượn đang mở, đúng hạn | ngayTra = ngayDenHan | Đóng phiếu, bản sao → CoSan |
 | TC-11 | UC-04 | BR-10, BR-11, FR-10 | Trả trễ | tre 4 ngày, 2 cuốn, trả cùng ngày | Phạt = 5.000 × 4 × 2 = 40.000đ (theo từng dòng, Q5) |
-| TC-12 | UC-04 | BR-15, FR-12 | Sách hư hỏng, giá bìa 80.000đ | biên bản hỏng | Phạt = 40.000đ |
-| TC-13 | UC-04 | BR-14, FR-12 | Sách mất, giá bìa 100.000đ | báo mất | Đền 200.000đ hoặc sách thay thế |
+| TC-12 | UC-04 | BR-15, FR-12 | Sách hư hỏng, giá bìa 80.000đ | biên bản hỏng | Đền bù = 40.000đ |
+| TC-13 | UC-04 | BR-14, FR-12 | Sách mất, giá bìa 100.000đ | báo mất | Đền 200.000đ |
 | TC-14 | UC-05 | BR-06, FR-07 | Đã gia hạn 1 lần, còn 5 ngày | — | Hạn mới = hạn cũ + 7 |
 | TC-15 | UC-05 | BR-06, FR-07 | Đã gia hạn 2 lần | xin lần 3 | Từ chối |
 | TC-16 | UC-05 | BR-07, FR-08 | Còn 1 ngày trước hạn | — | Từ chối |
@@ -23,16 +23,16 @@
 | TC-19 | UC-06 | BR-17, FR-13 | Sách hết bản sao "Có sẵn" | — | Tạo phiếu, viTriHang = cuối hàng |
 | TC-20 | UC-06 | FR-13 | Sách còn bản sao "Có sẵn" | — | Gợi ý mượn trực tiếp |
 | TC-21 | UC-06 | BR-18, FR-14 | Đến lượt, quá 3 ngày không nhận | ngayQua = 3 ngày | Huỷ phiếu, chuyển người kế tiếp |
-| TC-22 | UC-08 | BR-12, BR-13, FR-11 | Nợ 150.000đ, TK bị khoá | thanh toán 150.000đ | Công nợ = 0, mở khoá TK |
-| TC-23 | UC-08 | BR-13, FR-11 | Nợ 150.000đ | thanh toán 50.000đ | Công nợ = 100.000đ, TK vẫn khoá |
+| TC-22 | UC-08 | BR-12, BR-13, FR-11 | Nợ 150.000đ, bi_khoa_muon=true | thanh toán 150.000đ | Công nợ = 0, bi_khoa_muon → false |
+| TC-23 | UC-08 | BR-12, BR-13, FR-11 | Nợ 150.000đ, bi_khoa_muon=true | thanh toán 50.000đ | Phiếu phạt ThanhToanMotPhan, công nợ = 100.000đ, bi_khoa_muon vẫn true |
 | TC-24 | UC-12 | FR-19 | Phiếu còn 2 ngày đến hạn | cron 07:00 | Gửi email nhắc hạn |
 | TC-25 | UC-12 | FR-19 | Phiếu quá hạn 1 ngày | cron 07:00 | TrangThai → QuaHan, gửi email |
 | TC-26 | UC-11 | FR-18 | Trưởng TV đăng nhập | tháng 9/2026 | Hiển thị bảng + biểu đồ |
 | TC-27 | UC-07 | BR-10, BR-11, FR-10 | Trả trễ | tre 3 ngày, 2 cuốn | Phạt = 5.000 × 3 × 2 = 30.000đ |
-| TC-28 | UC-13 | BR-12, FR-11 | Công nợ 95.000đ, phạt mới 5.000đ | — | TK → Khoa |
-| TC-29 | UC-13 | BR-12, FR-11 | Công nợ 99.999đ | không phát sinh thêm | TK vẫn HoatDong |
+| TC-28 | UC-13 | BR-12, FR-11 | Công nợ 95.000đ, phạt mới 5.000đ | — | bi_khoa_muon → true |
+| TC-29 | UC-13 | BR-12, FR-11 | Công nợ 99.999đ | không phát sinh thêm | bi_khoa_muon vẫn false |
 | TC-30 | UC-08 | BR-13, FR-11 | Công nợ 100.000đ | xin mở khoá | Từ chối, yêu cầu đóng phạt |
-| TC-31 | UC-13 | BR-16, FR-03 | Thẻ thư viện hết hạn hôm nay | the.ngayHetHan = today | Từ chối mượn/gia hạn |
+| TC-31 | UC-13 | BR-21, FR-17 | Thẻ thư viện hết hạn từ hôm qua | the.ngayHetHan = today − 1 | Từ chối mượn/gia hạn (UC-13 ngữ cảnh MUON/GIA_HAN) |
 | TC-32 | UC-13 | BR-02, FR-04 | GV đang giữ 8 cuốn | xin cuốn thứ 9 | Từ chối |
 | TC-33 | UC-09 | FR-16 | Thêm đầu sách | isbn trùng bản ghi cũ | Cảnh báo, không tạo trùng |
 | TC-34 | UC-09 | FR-16 | Xoá đầu sách có bản sao DangMuon | — | Từ chối xoá |
@@ -43,7 +43,7 @@
 | TC-39 | UC-05 | BR-07, FR-08 | Còn đúng 2 ngày trước hạn | ngayDenHan - today = 2 | Cho phép gia hạn |
 | TC-40 | UC-05 | BR-06, FR-07 | Đủ mọi điều kiện | soLanGiaHan=1, biKhoaMuon=false, còn 5 ngày | Gia hạn thành công (ngày đến hạn +7) |
 | TC-41 | UC-14 | FR-09 | Trả sách | mã bản sao đang DangMuon | TrangThai → CoSan |
-| TC-42 | UC-06 | BR-23, FR-13 | Bạn đọc bị khoá | trangThaiTK=Khoa | Từ chối đặt trước |
+| TC-42 | UC-06 | BR-23, FR-13 | Bạn đọc bị khoá | biKhoaMuon=true | Từ chối đặt trước |
 | TC-43 | UC-01 | FR-01 | Đăng nhập + mượn sách | — | Có dòng log trong bảng nhat_ky |
 | TC-44 | UC-10 | BR-21, FR-17 | Thẻ cấp quá 12 tháng | ngayCap = 2024-10-05, hôm nay 2026-10-05 | Từ chối mượn, yêu cầu gia hạn thẻ |
 | TC-45 | UC-09 | BR-22, FR-16 | Nhập kho bản sao mới | maDauSach rút gọn = "LTJ", số thứ tự 12 | Sinh mã LTJ-0012 đúng quy tắc |
@@ -57,8 +57,17 @@
 | TC-53 | UC-03 | BR-05, FR-06 | Mã tạp chí loại TapChi | Xin mượn về | Từ chối |
 | TC-54 | UC-01 | BR-13, FR-11 | biKhoaMuon=true do nợ | Đăng nhập | Thành công (chỉ chặn mượn/đặt trước/gia hạn, Q8) |
 | TC-55 | UC-06 | FR-13 | Đã có phiếu đặt trước chờ cho sách X | Đặt trước lại X | Từ chối "đã đặt trước" |
-| TC-56 | UC-04 | BR-18, FR-14 | Bản sao đang mượn, hàng đợi ≠ rỗng | Trả sách bình thường | Bản sao → DaDatTruoc; người đầu hàng được giữ 3 ngày |
+| TC-56 | UC-04 | BR-18, FR-14 | Bản sao đang mượn, hàng đợi ≠ rỗng | Trả sách bình thường | Bản sao → DaDatTruoc; phiếu người đầu hàng → SanSangNhan, giữ 3 ngày và gửi email thông báo |
 | TC-57 | UC-11 | FR-23 | Trưởng TV đăng nhập | Xuất báo cáo 9/2026 dạng Excel | File tải về đủ số liệu |
 | TC-58 | UC-01 | FR-01 | Đã đăng nhập sai 3 lần liên tiếp | Lần thứ 4 | Tạm khoá 15 phút, hiển thị thông báo |
-| TC-59 | UC-03 | BR-21 | Thẻ cấp 05/10/2025 | Hôm nay 05/10/2026 | Cho mượn (thẻ còn hạn) |
-| TC-60 | UC-03 | BR-21 | Thẻ cấp 06/10/2024 | Hôm nay 06/10/2026 | Từ chối (vừa hết hạn 12 tháng, TC-44 biên) |
+| TC-59 | UC-03 | BR-21 | Thẻ cấp 05/10/2025 | Hôm nay 05/10/2026 | Cho mượn (hôm nay = ngày hết hạn, thẻ vẫn còn hiệu lực) |
+| TC-60 | UC-03 | BR-21 | Thẻ cấp 04/10/2025 | Hôm nay 05/10/2026 | Từ chối (ngày hết hạn 04/10/2026 < hôm nay; biên liền kề TC-59) |
+| TC-61 | UC-12 | FR-19 | Phiếu TraMotPhan, dòng chưa trả quá hạn 1 ngày | cron 07:00 | TrangThai → QuaHan, gửi email cảnh báo |
+| TC-62 | UC-05 | BR-06, FR-07 | Phiếu TraMotPhan chưa quá hạn, soLanGiaHan=0, còn 5 ngày | Xin gia hạn | Cho phép; ngày đến hạn của phiếu +7 |
+| TC-63 | UC-02 | NFR-01 | CSDL ~18.000 đầu sách | Tìm theo tên có chỉ mục full-text | Kết quả ≤ 2 giây |
+| TC-64 | UC-03 | NFR-02 | 50 người dùng đăng nhập đồng thời | Cùng thực hiện tra cứu và mượn | Hệ thống phục vụ bình thường, không lỗi timeout |
+| TC-65 | UC-01 | NFR-03 | Có tài khoản mới tạo | Kiểm tra cột mật khẩu trong CSDL; Bạn đọc gọi chức năng của Thủ thư | Mật khẩu là hash; truy cập trái vai trò bị từ chối |
+| TC-66 | — | NFR-04 | Hệ thống chạy ≥ 31 ngày | Kiểm tra thư mục sao lưu | Có bản sao lưu mỗi ngày, chỉ giữ 30 bản gần nhất |
+| TC-67 | UC-03 | NFR-05 | Thủ thư lập phiếu mượn/trả | Đo thời gian phản hồi | ≤ 3 giây |
+| TC-68 | UC-01 | NFR-07 | Chrome và Edge mới nhất | Đăng nhập, mượn, trả | Giao diện tiếng Việt hiển thị và hoạt động đúng |
+| TC-69 | UC-08 | BR-13, FR-11 | Nợ 150.000đ, bi_khoa_muon=true | Thanh toán 2 lần: 60.000đ rồi 90.000đ | Có 2 dòng thanh_toan_phat; so_tien_da_thu = 150.000đ; phiếu DaThanhToan; bi_khoa_muon → false |

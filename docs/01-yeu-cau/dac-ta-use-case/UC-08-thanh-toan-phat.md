@@ -13,7 +13,7 @@
 2. Hệ thống hiển thị danh sách phiếu phạt chưa trả kèm tổng nợ.
 3. Bạn đọc chọn phiếu cần đóng và nộp tiền.
 4. Thủ thư xác nhận thu tiền.
-5. Hệ thống cập nhật trạng thái "Đã thanh toán" và in biên lai.
+5. Hệ thống ghi một dòng `thanh_toan_phat` (số tiền, thủ thư, thời điểm), cập nhật `so_tien_da_thu`, đặt trạng thái "Đã thanh toán" khi đủ, rồi in biên lai.
 6. Hệ thống tính lại công nợ dẫn xuất; nếu dưới ngưỡng khoá (BR-12) và `bi_khoa_muon` đang bật do nợ thì tắt khoá mượn (mở khoá tài khoản bạn đọc).
 
 ## Luồng thay thế

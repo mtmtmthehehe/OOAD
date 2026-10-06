@@ -17,7 +17,7 @@ else cho phép
   alt không đủ ngày
     ControllerGiaHan --> ManHinhGiaHan : từ chối // BR-07
   else đủ ngày
-    ControllerGiaHan -> PhieuDatTruoc : tonTaiDangCho(maBanSao)
+    ControllerGiaHan -> PhieuDatTruoc : tonTaiDangCho(maDauSach)
     alt có người đặt trước (BR-09)
       ControllerGiaHan --> ManHinhGiaHan : từ chối // BR-09
     else không có đặt trước
@@ -31,5 +31,5 @@ else cho phép
     end
   end
 end
-note right: Trả một phần (TraMotPhan) có được gia hạn? Theo BR-08, phiếu QuaHan không gia hạn được;\nphiếu TraMotPhan chưa quá hạn thì cho gia hạn dòng chưa trả.
+note right: Phiếu TraMotPhan chưa quá hạn được gia hạn (hạn mới áp dụng cho các dòng chưa trả); phiếu QuaHan bị từ chối (BR-08).
 @enduml

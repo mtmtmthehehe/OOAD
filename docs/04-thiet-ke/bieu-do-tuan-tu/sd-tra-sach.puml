@@ -11,7 +11,7 @@ entity PhieuDatTruoc
 
 ThuThu -> ManHinhTraSach : quét mã bản sao
 ManHinhTraSach -> ControllerTraSach : traSach(maBanSao, tinhTrang)
-ControllerTraSach -> ChiTietPhieuMuon : layThongTin()
+ControllerTraSach -> ChiTietPhieuMuon : layNgayDenHan()
 ChiTietPhieuMuon --> ControllerTraSach : ngayDenHan
 ControllerTraSach -> ChiTietPhieuMuon : ngayTra = today
 
@@ -38,13 +38,14 @@ else tình trạng bình thường
   ControllerTraSach -> PhieuDatTruoc : tonTaiDangCho(maDauSach)
   alt hàng đợi đặt trước ≠ rỗng
     ControllerTraSach -> BanSaoSach : capNhatTrangThai(DaDatTruoc) // BR-18
+    ControllerTraSach -> PhieuDatTruoc : chuyenSanSangNhan() // hạn nhận theo BR-18, gửi email thông báo (FR-14)
   else không có đặt trước
     ControllerTraSach -> BanSaoSach : capNhatTrangThai(CoSan)
   end
 end
 
-ControllerTraSach -> PhieuMuon : moiChiTietDaTra()?
-alt mọi dòng chi tiết đã trả
+ControllerTraSach -> PhieuMuon : conDongChuaTra()
+alt không còn dòng chưa trả
   ControllerTraSach -> PhieuMuon : dongPhieu(DaTra/DaTraTre/MatHuHong)
 end
 ControllerTraSach --> ManHinhTraSach : kết quả trả sách + phiếu phạt

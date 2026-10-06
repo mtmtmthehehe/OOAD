@@ -4,7 +4,7 @@
 - **Actor chính:** Thủ thư
 - **Actor phụ:** Bạn đọc, Hệ thống
 - **Mô tả:** Kéo dài thời hạn mượn nếu đủ điều kiện: tối đa 2 lần, mỗi lần 7 ngày (BR-06).
-- **Tiền điều kiện:** Phiếu mượn đang ở trạng thái "Đang mượn".
+- **Tiền điều kiện:** Phiếu mượn đang ở trạng thái "Đang mượn" hoặc "Trả một phần" (chưa quá hạn); với phiếu "Trả một phần", hạn mới áp dụng cho các dòng chưa trả.
 - **Hậu điều kiện thành công:** Ngày đến hạn mới = ngày đến hạn cũ + 7 ngày (BR-06); số lần gia hạn tăng 1.
 - **Hậu điều kiện thất bại:** Giữ nguyên hạn trả, hiển thị lý do.
 

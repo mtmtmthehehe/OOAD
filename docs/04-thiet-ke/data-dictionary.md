@@ -94,9 +94,18 @@
 | loai_phat | VARCHAR(10) | CHECK IN (TRE, MAT, HONG) | Loại phạt (BR-10, BR-14, BR-15) |
 | so_ngay_tre | INT | | Số ngày trễ (0 nếu MAT/HONG) |
 | so_tien | DECIMAL(12,2) | NOT NULL | Tiền phạt |
-| so_tien_da_thu | DECIMAL(12,2) | DEFAULT 0, CHECK <= so_tien | Đã thu (Q6) |
+| so_tien_da_thu | DECIMAL(12,2) | DEFAULT 0, CHECK <= so_tien | Đã thu (Q6) = Σ `thanh_toan_phat.so_tien` của phiếu, cập nhật cùng giao dịch |
 | trang_thai | VARCHAR(20) | DEFAULT ChuaThanhToan, CHECK IN (ChuaThanhToan, ThanhToanMotPhan, DaThanhToan) | Trạng thái |
 | ngay_thanh_toan | DATE | | Ngày thanh toán |
+
+## thanh_toan_phat
+| Cột | Kiểu | Ràng buộc | Mô tả |
+|-----|------|-----------|-------|
+| ma_tt | VARCHAR(20) | PK | Mã lần thanh toán |
+| ma_phieu_phat | VARCHAR(20) | FK, NOT NULL | Phiếu phạt được thu |
+| ma_thu_thu | VARCHAR(20) | FK, NOT NULL | Thủ thư thu tiền |
+| so_tien | DECIMAL(12,2) | NOT NULL, CHECK > 0 | Số tiền thu lần này |
+| thoi_diem | TIMESTAMP | NOT NULL | Thời điểm thu (phục vụ lịch sử và biên lai, UC-08) |
 
 ## phieu_dat_truoc
 | Cột | Kiểu | Ràng buộc | Mô tả |
@@ -136,3 +145,15 @@
 
 ## View v_cong_no (Q7)
 cong_no của bạn đọc = Σ(so_tien − so_tien_da_thu) của các phiếu phạt chưa `DaThanhToan`.
+
+## Chỉ mục (NFR-01, NFR-05, NFR-08)
+| Chỉ mục | Bảng (cột) | Mục đích |
+|---------|-----------|----------|
+| ix_dau_sach_fts | dau_sach — GIN(to_tsvector('simple', ten_sach)) | Tra cứu theo tên ≤ ngưỡng NFR-01 |
+| ix_dau_sach_isbn | dau_sach (isbn) UNIQUE | Chống trùng ISBN (UC-09), tra cứu theo ISBN |
+| ix_ban_sao_dau_sach | ban_sao_sach (ma_dau_sach, trang_thai) | Đếm bản sao "Có sẵn" khi mượn/đặt trước |
+| ix_pm_ban_doc | phieu_muon (ma_ban_doc, trang_thai) | Kiểm tra phiếu quá hạn/hạn mức (UC-13), NFR-05 |
+| ix_pm_den_han | phieu_muon (ngay_den_han) WHERE trang_thai IN ('DangMuon','TraMotPhan') | Cron nhắc hạn (UC-12, NFR-08) |
+| ix_pp_ban_doc | phieu_phat (ma_ban_doc, trang_thai) | View v_cong_no |
+| ix_dt_hang | phieu_dat_truoc (ma_dau_sach, trang_thai, vi_tri_hang) | Hàng đợi đặt trước (BR-17) |
+

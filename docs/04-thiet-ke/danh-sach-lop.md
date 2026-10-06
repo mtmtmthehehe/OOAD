@@ -25,3 +25,4 @@
 | CLS-21 | TaiKhoan | Entity | Tài khoản đăng nhập, vai trò, trạng thái HoatDong/VoHieuHoa | UC-01 |
 | CLS-22 | NhatKy | Entity | Ghi log thao tác | UC-01, UC-03, UC-04 |
 | CLS-23 | ManHinhDatTruoc | Boundary | Màn hình đặt trước (tách từ UC-06) | UC-06 |
+| CLS-24 | ThanhToanPhat | Entity | Lịch sử từng lần thu phạt, phục vụ biên lai | UC-08 |

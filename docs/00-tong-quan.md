@@ -16,12 +16,12 @@ Phân tích hướng đối tượng theo 4 giai đoạn: khảo sát → use ca
 - 14 Use Case (UC-01…UC-14), sơ đồ use case có include/extend — mo-hinh-use-case.md, so-do-use-case.puml
 - 14 đặc tả UC chi tiết trong `docs/01-yeu-cau/dac-ta-use-case/`
 - Ma trận truy vết BR–FR–UC–Lớp — ma-tran-truy-vet.md
-- Domain model; class diagram 14 lớp Entity + 9 lớp Boundary/Control trong danh-sach-lop.md (CLS-01…CLS-23)
+- Domain model; class diagram 15 lớp Entity + 9 lớp Boundary/Control trong danh-sach-lop.md (CLS-01…CLS-24)
 - 4 sequence diagram cho UC lõi (Mượn, Trả, Gia hạn, Đặt trước)
 - 2 state diagram: BanSaoSach, PhieuMuon
-- ERD 15 bảng + data dictionary
-- 11 màn hình wireframe
-- 60 test case (TC-01…TC-60) — ca-kiem-thu.md, phủ mọi BR và mọi UC
+- ERD 16 bảng + data dictionary
+- 11 màn hình wireframe (mô tả vùng) + 2 wireframe dạng hình (PlantUML Salt)
+- 69 test case (TC-01…TC-69, gồm TC cho NFR) — ca-kiem-thu.md, phủ mọi BR và mọi UC
 
 ## 5. Hạn chế
 - Số liệu khảo sát mang tính giả định; chưa khảo sát bạn đọc trực tiếp. Kế hoạch khắc phục: phỏng vấn thêm 10–15 bạn đọc và 2 thủ thư trước khi chốt bản chính thức (dự kiến tháng 11/2026).

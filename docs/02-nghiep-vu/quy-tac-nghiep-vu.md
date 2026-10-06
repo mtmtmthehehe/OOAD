@@ -25,7 +25,7 @@
 | BR-18 | Khi đến lượt đặt trước, bạn đọc được giữ tài liệu tối đa 3 ngày; nếu không đến nhận, phiếu bị huỷ và chuyển cho người kế tiếp. | Đề xuất nhóm, chờ bà Nguyễn Thị Hồng xác nhận | Quy trình |
 | BR-19 | Một bạn đọc chỉ giữ tối đa 2 phiếu đặt trước chưa đến lượt. | Quy chế thư viện (giả định) | Ràng buộc |
 | BR-20 | Tiền *phạt trễ hạn* của một phiếu mượn tối đa bằng tổng giá bìa các tài liệu trong phiếu; không áp cho đền bù mất/hỏng (BR-14, BR-15). | Quyết định nhóm Q1, chờ Trưởng thư viện xác nhận | Ràng buộc |
-| BR-21 | Thẻ thư viện có hiệu lực 12 tháng kể từ ngày cấp và phải gia hạn hàng năm. | Quy chế thư viện (giả định) | Ràng buộc |
+| BR-21 | Thẻ thư viện có hiệu lực 12 tháng kể từ ngày cấp và phải gia hạn hàng năm. Ngày hết hạn = ngày cấp + 12 tháng; thẻ còn hiệu lực đến hết ngày hết hạn (hôm nay ≤ ngày hết hạn). | Quy chế thư viện (giả định) | Ràng buộc |
 | BR-22 | Mã bản sao theo mẫu `<XXX>-<dddd>`: XXX = mã đầu sách rút gọn 3 ký tự, dddd = 4 chữ số (ví dụ LTJ-0012). | Quy chế thư viện (giả định) | Quy trình |
 | BR-23 | Tài khoản bị khoá (bi_khoa_muon) không được đặt trước. | Quyết định nhóm Q3, chờ Trưởng thư viện xác nhận | Ràng buộc |
 

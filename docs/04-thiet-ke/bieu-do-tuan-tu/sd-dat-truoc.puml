@@ -2,17 +2,17 @@
 actor BanDoc as BD
 boundary ManHinhDatTruoc
 control ControllerDatTruoc
-entity BanSaoSach
+entity DauSach
 entity PhieuDatTruoc
 entity BanDoc
 
 BD -> ManHinhDatTruoc : chọn "Đặt trước" đầu sách
 ManHinhDatTruoc -> ControllerDatTruoc : datTruoc(maDauSach)
-ControllerDatTruoc -> BanSaoSach : kiemTraConBanSaoTrong()
+ControllerDatTruoc -> DauSach : conBanSaoTrong()
 alt còn bản sao "Có sẵn"
   ControllerDatTruoc --> ManHinhDatTruoc : gợi ý mượn trực tiếp (UC-03)
 else hết bản sao trong
-  ControllerDatTruoc -> PhieuDatTruoc : kiemTraTrungDauSach(maBanDoc, maDauSach)
+  ControllerDatTruoc -> PhieuDatTruoc : kiemTraTrung(maBanDoc, maDauSach)
   alt đã có phiếu chờ cho đầu sách này
     ControllerDatTruoc --> ManHinhDatTruoc : từ chối "đã đặt trước" // UC-06 3a
   else
@@ -20,7 +20,7 @@ else hết bản sao trong
     alt đang chờ >= 2 phiếu (BR-19)
       ControllerDatTruoc --> ManHinhDatTruoc : từ chối "tối đa 2 phiếu chờ"
     else
-      ControllerDatTruoc -> BanDoc : kiemTraDieuKienDatTruoc() // thẻ còn hạn + biKhoaMuon=false (BR-23)
+      ControllerDatTruoc -> BanDoc : kiemTraDieuKien(DAT_TRUOC) // UC-13: thẻ còn hạn + biKhoaMuon=false (BR-23)
       BanDoc --> ControllerDatTruoc : hợp lệ
       ControllerDatTruoc -> PhieuDatTruoc : new(ngayDat, viTriHang = max(viTriHang hien tai) + 1)
       ControllerDatTruoc --> ManHinhDatTruoc : đặt trước thành công, hiển thị vị trí hàng

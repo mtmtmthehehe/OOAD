@@ -21,6 +21,6 @@
 - 3b. Đang có 2 phiếu đặt trước chờ: từ chối (BR-19).
 
 ## Luồng thay thế (khi sách trả về)
-- Khi bản sao trả về, hệ thống chuyển người đầu hàng đợi thành "Đã sẵn sàng nhận", giữ 3 ngày (BR-18); quá 3 ngày tự huỷ và chuyển người kế tiếp, bản sao trả về trạng thái "Có sẵn".
+- Khi bản sao trả về, hệ thống chuyển người đầu hàng đợi thành "Đã sẵn sàng nhận", giữ 3 ngày (BR-18) và gửi email thông báo cho bạn đọc (FR-14); quá 3 ngày tự huỷ và chuyển người kế tiếp, bản sao trả về trạng thái "Có sẵn".
 
 ## Tần suất: ~80 lượt/ngày.

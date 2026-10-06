@@ -9,6 +9,9 @@ MatHuHong : Mất/Hư hỏng
 [*] --> DangMuon : UC-03 tạo phiếu
 DangMuon --> DangMuon : UC-05 Gia hạn [soLanGiaHan < 2 && còn ≥ 2 ngày && không có đặt trước && TK không khoá] (BR-06..BR-09, BR-13)
 DangMuon --> QuaHan : UC-12 cron job
+TraMotPhan --> QuaHan : UC-12 cron job (còn dòng chưa trả, quá hạn)
+QuaHan --> QuaHan : UC-04 trả thêm cuốn (còn dòng chưa trả)
+TraMotPhan --> TraMotPhan : UC-05 Gia hạn [chưa quá hạn] (BR-06..BR-09, BR-13)
 DangMuon --> TraMotPhan : UC-04 trả một phần cuốn
 TraMotPhan --> TraMotPhan : UC-04 trả thêm cuốn
 TraMotPhan --> DaTra : UC-04 trả hết, đúng hạn

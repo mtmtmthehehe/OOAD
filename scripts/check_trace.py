@@ -80,8 +80,6 @@ fr_tab_tcs = set()
 for r in fr_tab_rows:
     fr_tab_tcs |= ids(r[3])
 all_matrix_tcs = (set().union(*TCs_of_BR.values()) if TCs_of_BR else set()) | fr_tab_tcs
-for tc in tcs:
-    if tc not in all_matrix_tcs: err(f'{tc} không xuất hiện trong ma trận')
 
 # (3) FR↔BR hai chiều giữa FR file và ma trận (chỉ áp dụng hàng BR trong ma trận)
 matrix_fr_has_br = collections.defaultdict(set)
@@ -106,6 +104,24 @@ for br, clss_c in CLSs_of_BR.items():
         if c not in classes: err(f'Ma trận hàng {br}: {c} không tồn tại')
 for t, brs_c in BR_of_TC.items():
     if t not in tcs: err(f'Ma trận nhắc {t} nhưng không tồn tại trong ca kiểm thử')
+
+# (5b) Bảng NFR trong ma trận: mỗi NFR có thiết kế/ADR hoặc TC; TC tồn tại và được ghi nhận
+nfr_rows = rows(docs/'06-truy-vet/ma-tran-truy-vet.md', 'NFR-')
+nfr_seen = {r[0] for r in nfr_rows}
+for n in nfrs:
+    if n not in nfr_seen: err(f'{n} không có trong bảng NFR của ma trận')
+for r in nfr_rows:
+    if r[0] not in nfrs: err(f'Ma trận NFR: {r[0]} không tồn tại')
+    if (r[1] in ('—','-','')) and (r[2] in ('—','-','')): err(f'{r[0]}: thiếu cả thiết kế/ADR lẫn TC')
+    for tcid in ids(r[2]):
+        if tcid not in tcs: err(f'Ma trận NFR {r[0]}: {tcid} không tồn tại')
+        all_matrix_tcs.add(tcid)
+for tc, r in tcs.items():
+    for n in {x for x in ids(r[2]) if x.startswith('NFR-')}:
+        if tc not in set().union(*[ids(x[2]) for x in nfr_rows if x[0]==n] or [set()]): err(f'{tc} trích {n} nhưng bảng NFR không liệt kê {tc}')
+
+for tc in tcs:
+    if tc not in all_matrix_tcs: err(f'{tc} không xuất hiện trong ma trận')
 
 # (6) Số lượng đếm khớp tài liệu tổng quan
 tongquan = (docs/'00-tong-quan.md').read_text(encoding='utf-8')

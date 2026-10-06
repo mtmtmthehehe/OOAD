@@ -47,6 +47,11 @@ enum LoaiTaiLieu {
   ThamKhao
   TapChi
 }
+enum NguCanhKiemTra {
+  MUON
+  GIA_HAN
+  DAT_TRUOC
+}
 enum TrangThaiThe {
   HieuLuc
   HetHan
@@ -61,6 +66,7 @@ class DauSach {
   +giaBia: double
   +loaiTaiLieu: LoaiTaiLieu
   +choMuonVe(): boolean
+  +conBanSaoTrong(): boolean
 }
 class BanSaoSach {
   +maBanSao: String
@@ -75,8 +81,7 @@ class BanDoc {
   +loai: LoaiBanDoc
   +biKhoaMuon: boolean
   +congNo(): double {derived}
-  +kiemTraDieuKienMuon(): boolean
-  +kiemTraDieuKienDatTruoc(): boolean
+  +kiemTraDieuKien(nguCanh: NguCanhKiemTra): boolean
 }
 class TheThuVien {
   +maThe: String
@@ -85,6 +90,7 @@ class TheThuVien {
   +trangThai: TrangThaiThe
   +conHieuLuc(): boolean
 }
+note right of TheThuVien : conHieuLuc() = trangThai ≠ ThuHoi\nvà hôm nay ≤ ngayHetHan (BR-21)
 class TaiKhoan {
   +maTK: String
   +tenDangNhap: String
@@ -112,11 +118,15 @@ class PhieuMuon {
   +soLanGiaHan: int
   +coQuaHan(): boolean {derived}
   +choPhepGiaHan(): boolean
+  +daDuNgayTruocHan(): boolean
   +giaHan(): boolean
+  +conDongChuaTra(): boolean
+  +dongPhieu(): void
 }
 note top of PhieuMuon : ngayDenHan được lưu (tính lúc tạo,\nđặt lại khi gia hạn), không phải derived
 class ChiTietPhieuMuon {
   +ngayTra: Date
+  +layNgayDenHan(): Date
 }
 class PhieuPhat {
   +maPhieuPhat: String
@@ -126,6 +136,7 @@ class PhieuPhat {
   +soTienDaThu: double
   +trangThai: TrangThaiPhat
   +tinhTien(): double
+  +ghiNhanThanhToan(soTien: double): void
 }
 class PhieuDatTruoc {
   +maPhieuDT: String
@@ -133,6 +144,15 @@ class PhieuDatTruoc {
   +viTriHang: int
   +hanNhanSach: Date
   +trangThai: TrangThaiDT
+  +tonTaiDangCho(maDauSach): boolean
+  +kiemTraTrung(maBanDoc, maDauSach): boolean
+  +demPhieuCho(maBanDoc): int
+  +chuyenSanSangNhan(): void
+}
+class ThanhToanPhat {
+  +maTT: String
+  +soTien: double
+  +thoiDiem: Date
 }
 class NhaXuatBan {
   +maNXB: String
@@ -164,4 +184,16 @@ PhieuDatTruoc "0..*" -- "0..1" BanSaoSach
 TaiKhoan "0..1" -- "1" BanDoc
 TaiKhoan "0..1" -- "1" ThuThu
 TaiKhoan "1" -- "0..*" NhatKy
+PhieuPhat "1" -- "0..*" ThanhToanPhat
+ThuThu "1" -- "0..*" ThanhToanPhat : thu
+BanDoc ..> LoaiBanDoc
+TaiKhoan ..> TrangThaiTK
+BanSaoSach ..> TrangThaiBanSao
+PhieuMuon ..> TrangThaiPhieuMuon
+PhieuPhat ..> TrangThaiPhat
+PhieuPhat ..> LoaiPhat
+PhieuDatTruoc ..> TrangThaiDT
+DauSach ..> LoaiTaiLieu
+TheThuVien ..> TrangThaiThe
+BanDoc ..> NguCanhKiemTra
 @enduml

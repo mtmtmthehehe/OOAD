@@ -10,9 +10,9 @@
 | FR-06 | Ngăn mượn tài liệu loại tham khảo tại chỗ và Tạp chí. | Cao | BR-05 |
 | FR-07 | Gia hạn phiếu mượn tối đa 2 lần, mỗi lần 7 ngày. | Cao | BR-06 |
 | FR-08 | Kiểm tra điều kiện gia hạn (trước hạn ≥ 2 ngày, chưa quá hạn, chưa có người đặt trước). | Cao | BR-07, BR-08, BR-09 |
-| FR-09 | Lập phiếu trả, cập nhật trạng thái bản sao. | Cao | — |
+| FR-09 | Ghi nhận trả sách từng dòng chi tiết, cập nhật trạng thái bản sao và phiếu mượn. | Cao | — |
 | FR-10 | Tính tiền phạt quá hạn 5.000đ/ngày/tài liệu. | Cao | BR-10, BR-11 |
-| FR-11 | Khoá tài khoản khi nợ phạt ≥ 100.000đ và mở lại sau khi thanh toán. | Cao | BR-12, BR-13 |
+| FR-11 | Khoá mượn/gia hạn/đặt trước khi nợ phạt ≥ 100.000đ và mở lại sau khi thanh toán. | Cao | BR-12, BR-13 |
 | FR-12 | Tính đền bù mất/hư hỏng (2× giá bìa / 50% giá bìa). | Cao | BR-14, BR-15 |
 | FR-13 | Đặt trước tài liệu khi hết, xếp hàng theo thời gian. | TB | BR-17, BR-23 |
 | FR-14 | Thông báo và huỷ phiếu đặt trước nếu quá 3 ngày không nhận. | TB | BR-18 |

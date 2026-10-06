@@ -14,11 +14,11 @@
 | 06/10/2026 | Cả nhóm | Bước 2.4: đặc tả 4 UC lõi | 4h | Mượn, Trả, Gia hạn, Đặt trước |
 | 06/10/2026 | Cả nhóm | Bước 2.4: đặc tả 10 UC còn lại | 4h | Hoàn thành 14 đặc tả |
 | 06/10/2026 | Cả nhóm | Bước 2.5–2.6: ma trận truy vết + rà soát | 1h30 | Không BR mồ côi |
-| 06/10/2026 | Thành viên 1+2 | Bước 3.1–3.2: domain model, class diagram | 3h | 14 lớp entity + thuộc tính dẫn xuất |
+| 06/10/2026 | Thành viên 1+2 | Bước 3.1–3.2: domain model, class diagram | 3h | 15 lớp entity + thuộc tính dẫn xuất |
 | 06/10/2026 | Thành viên 3+4 | Bước 3.3: 4 sequence diagram | 3h | Tên lớp khớp class diagram |
 | 06/10/2026 | Cả nhóm | Bước 3.4–3.6: state diagram, danh sách lớp | 2h | Hoàn tất GĐ3 |
-| 06/10/2026 | Thành viên 1+2 | Bước 4.1: ERD + data dictionary | 3h | 15 bảng (gồm nhat_ky) |
+| 06/10/2026 | Thành viên 1+2 | Bước 4.1: ERD + data dictionary | 3h | 16 bảng (gồm nhat_ky, thanh_toan_phat) |
 | 06/10/2026 | Thành viên 3+4 | Bước 4.2: wireframe 11 màn hình | 2h | Hoàn thành |
-| 06/10/2026 | Cả nhóm | Bước 4.3: ca kiểm thử | 3h | 60 TC |
+| 06/10/2026 | Cả nhóm | Bước 4.3: ca kiểm thử | 3h | 69 TC (gồm TC cho NFR) |
 | 06/10/2026 | Cả nhóm | Bước 4.4–4.5: báo cáo tổng hợp, nhật ký | 2h | Số liệu đếm lại |
 | 06/10/2026 | Cả nhóm | Bước 4.6: rà soát toàn repo, hoàn thiện README | 2h | Rà truy vết BR→TC |

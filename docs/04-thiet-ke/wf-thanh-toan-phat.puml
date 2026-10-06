@@ -1,0 +1,21 @@
+@startsalt
+{+
+  <b>THANH TOÁN PHẠT — UC-08
+  ..
+  Tìm bạn đọc | "Mã thẻ / họ tên     " | [Tìm]
+  ==
+  {#
+    Mã phiếu | Loại | Số tiền | Đã thu | Còn nợ | Chọn
+    PP-0001 | TRE | 40.000 | 0 | 40.000 | [X]
+    PP-0002 | MAT | 200.000 | 60.000 | 140.000 | [ ]
+  }
+  ..
+  Số tiền thu lần này | "              " | [Xác nhận thu]
+  ==
+  {#
+    Lịch sử thanh toán | Thời điểm | Số tiền | Thủ thư
+    TT-0001 | dd/mm/yyyy hh:mm | 60.000 | Thủ thư A
+  }
+  [In biên lai]
+}
+@endsalt

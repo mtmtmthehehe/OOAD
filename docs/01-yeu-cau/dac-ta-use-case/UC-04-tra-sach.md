@@ -15,9 +15,9 @@
 4. Thủ thư xác nhận; hệ thống ghi `ngayTra` cho dòng `ChiTietPhieuMuon`.
 5. Theo kết quả kiểm tra ở bước 3, hệ thống phát sinh phiếu phạt tương ứng (bước 6a/6b) nếu có.
 6. Hệ thống <<include>> UC-14: cập nhật trạng thái bản sao:
-   - Nếu có người đặt trước đang chờ cho đầu sách → "Đã đặt trước" (BR-18).
+   - Nếu có người đặt trước đang chờ cho đầu sách → "Đã đặt trước" (BR-18); phiếu người đầu hàng → "Sẵn sàng nhận" và gửi email thông báo (FR-14).
    - Ngược lại → "Có sẵn".
-7. Nếu mọi dòng trong phiếu đã có `ngayTra` → đóng phiếu mượn (`DaTra` / `DaTraTre` / `MatHuHong`). Nếu còn dòng chưa trả → phiếu giữ trạng thái `TraMotPhan`.
+7. Nếu mọi dòng trong phiếu đã có `ngayTra` → đóng phiếu mượn (`DaTra` / `DaTraTre` / `MatHuHong`). Nếu còn dòng chưa trả → phiếu giữ trạng thái `TraMotPhan` (hoặc giữ `QuaHan` nếu đã quá hạn).
 
 ## Luồng thay thế
 - 5a. Sách trả trễ: hệ thống <<extend>> UC-07, tính phạt riêng cho dòng này (5.000đ × ngày trễ, BR-10).

@@ -11,7 +11,7 @@ entity NhatKy
 
 BD -> ManHinhMuonSach : quét mã thẻ, mã sách
 ManHinhMuonSach -> ControllerMuonSach : taoPhieuMuon(maThe, dsMaBanSao)
-ControllerMuonSach -> BanDoc : kiemTraDieuKienMuon() // BR-16
+ControllerMuonSach -> BanDoc : kiemTraDieuKien(MUON) // UC-13, BR-16
 alt không đủ điều kiện
   ControllerMuonSach --> ManHinhMuonSach : từ chối + lý do (nợ phạt/quá hạn/khoá/hết hạn mức/thẻ hết hạn)
 else đủ điều kiện

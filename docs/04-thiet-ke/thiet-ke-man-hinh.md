@@ -68,3 +68,8 @@
 - Vùng 2: Biểu đồ lượt mượn/trả theo tháng (nguồn: PhieuMuon, ChiTietPhieuMuon).
 - Vùng 3: Top đầu sách mượn nhiều; tổng công nợ; số bạn đọc bị khoá (BR-12).
 - Vùng 4: Nút xuất Excel/PDF (FR-23).
+
+## Wireframe dạng hình (PlantUML Salt)
+- Màn hình Mượn/Trả (mục 4): ![Mượn/Trả](wf-muon-tra.png)
+- Màn hình Thanh toán phạt (mục 7): ![Thanh toán phạt](wf-thanh-toan-phat.png)
+

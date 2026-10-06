@@ -1,0 +1,18 @@
+@startsalt
+{+
+  <b>MƯỢN / TRẢ SÁCH — UC-03, UC-04, UC-05
+  ..
+  Mã thẻ bạn đọc | "TV-0001            " | [Quét thẻ]
+  Họ tên: Nguyễn Văn A | Loại: SV | Công nợ: 0đ
+  ==
+  {#
+    Mã bản sao | Tên sách | Hạn trả | Thao tác
+    LTJ-0012 | Lập trình Java | dd/mm/yyyy | [Trả]
+    CSDL-0003 | Cơ sở dữ liệu | dd/mm/yyyy | [Gia hạn]
+  }
+  ..
+  <color:red>Cảnh báo: phiếu quá hạn / công nợ vượt ngưỡng khoá (BR-12)
+  ..
+  [Xác nhận mượn] | [Trả sách] | [Gia hạn]
+}
+@endsalt
